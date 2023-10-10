@@ -7,7 +7,7 @@ Make sure to read Terms and Conditions for each dataset before using it.
 
 ## Dataset Wiki:
 
-  * Esposalles: Historical catalan handwritten recognition with word and line level annotations. (source)[http://dag.cvc.uab.es/the-esposalles-database/]
+  * Esposalles: Historical catalan handwritten recognition with word and line level annotations. 4 75% cross validation sets are provided as well. (source)[http://dag.cvc.uab.es/the-esposalles-database/]
   * COCOText: English and non-English COCO Images annotated with OCR and manually corrected. Scene text recognition and a few handwritted images. (source)[https://bgshih.github.io/cocotext/]
   * FUNSD: English documents for form text (printed and some handwritten) text recognition. (source)[https://bgshih.github.io/cocotext/]
   * George Washington: English historical handwritten recognition with word and line level annotations. (source)[https://fki.tic.heia-fr.ch/databases/washington-database]
