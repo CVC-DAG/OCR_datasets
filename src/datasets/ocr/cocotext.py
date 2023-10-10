@@ -8,7 +8,7 @@ DEFAULT_COCOTEXT = "/data/users/amolina/OCR/COCOText"
 
 class COCOTextDataset(GenericDataset):
     name = 'cocotext_dataset'
-    def __init__(self, base_folder = DEFAULT_COCOTEXT, annots_name='cocotext.v2.json', split = 'train',
+    def __init__(self, base_folder = DEFAULT_COCOTEXT, annots_name='cocotext.v2.json', split: ['train', 'val'] = 'train',
                  langs = ['english', 'not english'], legibility = ['legible', 'illgible'],
                  image_height = 128, patch_width = 16, transforms = lambda x: x) -> None:
         super().__init__()
@@ -31,6 +31,7 @@ class COCOTextDataset(GenericDataset):
             for annot in img['annots']:
                 
                 annotation = json_annots['anns'][annot]
+
                 if annotation['legibility'] in legibility and annotation['language'] in langs:
                     self.samples[total_count] = {
                         'image_path': img['path'],

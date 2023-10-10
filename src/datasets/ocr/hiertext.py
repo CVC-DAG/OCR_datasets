@@ -49,7 +49,7 @@ class HierTextDataset(GenericDataset):
                             
                             self.samples.append({
                                 
-                                'bbox': bbx_from_vertices_list(line['vertices']),
+                                'bbx': bbx_from_vertices_list(line['vertices']),
                                 'image_path': image_path,
                                 'transcription': line['text'],
                                 'vertical': line['vertical']

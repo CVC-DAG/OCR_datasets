@@ -33,7 +33,7 @@ class MLT19Dataset(GenericDataset):
 
         self.data = []
         for gt_file in os.listdir(self.annotations_folder):
-            if not gt_file in valid_anns:
+            if gt_file in valid_anns:
                 image_path = os.path.join(
                     self.image_folder, gt_file.replace('.txt', '.jpg')
                 )

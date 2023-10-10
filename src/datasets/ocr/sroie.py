@@ -34,13 +34,14 @@ class SROIEDataset(GenericDataset):
 
             annotations = [
                 x.strip() for x in open(
-                    os.path.join(base_folder, split, img_id + '.txt')
+                    os.path.join(base_folder, split, img_id + '.txt'), errors='ignore'
                 ).readlines()
-            ]
+            ] # With Errors = ignore you just skip bad characters
 
             for annotation in annotations:
 
                 rows = annotation.split(',')
+                if len(rows) == 1: continue # empty row
                 xx, xy, yy, yx, x2x, x2y, y2y, y2x, transcription = rows[:8] + [','.join(rows[8:])]
                 points = [[int(y) for y in x] for x in [[xx, xy],
                                   [yy, yx],

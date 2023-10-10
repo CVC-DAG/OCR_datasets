@@ -42,7 +42,6 @@ class TotalTextDataset(GenericDataset):
                     .replace("]], ", "', ")\
                     .replace("ornt: [", "'ornt': [")\
                     .replace("transcriptions: [", "'transcriptions': [") # Mare de Déu que és això si us plau
-
                 line_as_dict = eval("{" + line + "}")
 
                 points = [(int(x), int(y)) for x,y in zip(line_as_dict['x'].split(), line_as_dict['y'].split())]
