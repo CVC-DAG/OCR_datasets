@@ -59,44 +59,51 @@ Using aachen partitions as found https://github.com/jpuigcerver/Laia/tree/master
       - Val words: 29336 (from 4-fold cv, test evaluation can be found in rrc site)
 
 * Parzival: Historical german binarized documents with word and line level annotation. (source)[https://fki.tic.heia-fr.ch/databases/parzival-database]
-        - Train words: 5872
-        - Test words: TBA
-        - Validation words: 2936
-        - Train lines: 2237
-        - Test lines: TBA
-        - Validation lines: 912
+
+  - Train words: 5872
+  - Test words: TBA
+  - Validation words: 2936
+  - Train lines: 2237
+  - Test lines: TBA
+  - Validation lines: 912
 
 * Saint Gall: Historical handwritten latin documents at line level (there's word-level annotatins but they don't work for me :( ). (source)[https://fki.tic.heia-fr.ch/databases/saint-gall-database]
-         - Train lines: 707
-         - Test lines: 468
-         - Validation lines: 235
+  
+  - Train lines: 707
+  - Test lines: 468
+  - Validation lines: 235
 
 * SROIE: Superset (i think) of FUNSD for receipts. (source)[https://rrc.cvc.uab.es/?ch=13]
-           - Train entities: 34930
-           - Test entities: 19386
+  
+   - Train entities: 34930
+   - Test entities: 19386
 
 * SVT: Street view images for scene text recognition. A link doesn't seem to work, idk why but i have the images. (source)[https://tc11.cvc.uab.es/datasets/SVT_1]
-            - Train words: 647
-            - Test words: 257
+  
+    - Train words: 647
+    - Test words: 257
 
 * TextOCR: OCR-Extracted annotations for VQA. (source)[https://textvqa.org/textocr/dataset/]
-             - train words: 714770
-             - val words: 107802
+  
+     - train words: 714770
+     - val words: 107802
 
 * TOTAL TEXT: Totally cool dataset for curved text recognition (interesting for domain shift reasons). (source)[https://github.com/cs-chan/Total-Text-Dataset/tree/master/Groundtruth]
-             - Train words: 10589
-             - Test words: 2547
+  
+    - Train words: 10589
+    - Test words: 2547
 
 * XFund: multilingual FUNSD with 199 pages per language. (source)[https://github.com/doc-analysis/XFUND/releases/tag/v1.0].
-             - Training entities: 71999
-                1. DE: 8632
-                2. ES: 11449
-                3. FR: 8816
-                4. IT: 12215
-                5. JA: 9005
-                6. PT: 11654
-                7. ZH: 10228
-           - Validation entities: 25013
+  
+     - Training entities: 71999
+         1. DE: 8632
+         2. ES: 11449
+         3. FR: 8816
+         4. IT: 12215
+         5. JA: 9005
+         6. PT: 11654
+         7. ZH: 10228
+    - Validation entities: 25013
   
     
 Note: Some measurements may be messed up, give me time I spent +3 whole days on that and i get easily overwhelmed :(
