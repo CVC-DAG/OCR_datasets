@@ -70,10 +70,8 @@ class IAMDataset(GenericDataset):
                            
                            ).convert('RGB')
         
-        original_width, _ = image.size
-        new_width = original_width + (original_width % self.patch_width)
-        
-        image_resized = image.resize((new_width, self.image_height))
+        image_resized = self.resize_image(image)
+
         input_tensor = self.transforms(image_resized)
         
         return {
@@ -82,7 +80,9 @@ class IAMDataset(GenericDataset):
             "input_tensor": input_tensor,
             "annotation": metadata['transcription'],
             'dataset': self.name,
-            'split': self.split
+            'split': self.split,
+            'tokens': [char for char in metadata['transcription']]
+
         }
 
     

@@ -40,11 +40,12 @@ class ParzivalDataset(GenericDataset):
 
                 img_path = os.path.join(base_folder, "data", f"{mode}_images_normalized", file_id + '.png')
                 line_transcription = transcription\
-                .replace("pt", ".").replace("eq", "-").replace("-", "").replace('|', ' ') # TODO: Solve strange characters
+                .replace("pt", ".").replace('|', '- -') # TODO: Solve strange characters
 
                 self.data.append({
                     'image_path': img_path,
-                    'transcription': line_transcription
+                    'transcription': line_transcription,
+                    'tokens':  [char if char != 'eq' else '-' for char in line_transcription.split('-')]
                 })
     
     def __len__(self):
@@ -55,12 +56,9 @@ class ParzivalDataset(GenericDataset):
         metadata = self.data[idx]
 
         image = Image.open(metadata['image_path']).convert('RGB')
-        
-        original_width, _ = image.size
-        new_width = original_width + (original_width % self.patch_width)
-        
-        image_resized = image.resize((new_width, self.image_height))
-         
+                
+        image_resized = self.resize_image(image)
+
         input_tensor = self.transforms(image_resized)
         
         annotation = metadata['transcription']
@@ -72,7 +70,8 @@ class ParzivalDataset(GenericDataset):
             "annotation": annotation,
             'dataset': self.name,
             'split': f"{self.mode}_{self.split}",
-            'path': metadata['image_path']
+            'path': metadata['image_path'],
+            'tokens': metadata['tokens']
         }
                         
 

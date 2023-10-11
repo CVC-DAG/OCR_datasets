@@ -1,9 +1,21 @@
 import numpy as np
+from PIL import Image
 
 class GenericDataset:
 
     def add(self, dataset):
         return SummedDataset(self, dataset)
+
+    def resize_image(self, image):
+
+        original_width, original_height = image.size
+        scale = self.image_height / original_height
+        
+        resized_width = int(round(scale * original_width, 0))
+        new_width = resized_width + (resized_width % self.patch_width)
+        
+        return image.resize((new_width, self.image_height))
+
 
     def __add__(self, dataset):
         return self.add(dataset)

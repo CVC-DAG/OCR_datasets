@@ -76,10 +76,7 @@ class GWDataset(GenericDataset):
 
         image = Image.open(metadata['image_path']).convert('RGB')
         
-        original_width, _ = image.size
-        new_width = original_width + (original_width % self.patch_width)
-        
-        image_resized = image.resize((new_width, self.image_height))
+        image_resized = self.resize_image(image)
          
         input_tensor = self.transforms(image_resized)
         
@@ -92,7 +89,9 @@ class GWDataset(GenericDataset):
             "annotation": annotation,
             'dataset': self.name,
             'split': f"{self.fold}_{self.split}",
-            'path': metadata['image_path']
+            'path': metadata['image_path'],
+            'tokens': [char for char in metadata['transcription']]
+
         }
                         
                 
