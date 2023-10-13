@@ -33,6 +33,7 @@ class HistoricalMapsdDataset(GenericDataset):
 
                         points = word['points']
 
+                        if word['text'] is None: continue
                         samples.append({
                             
                             'image_path': img_file,

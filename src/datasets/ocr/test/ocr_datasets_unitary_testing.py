@@ -26,7 +26,8 @@ def log_dataset(dataset, idx = IDX, image_to_observe = 'original_image'):
     print('total:', len(dataset))
     out = dataset[idx]
     print(out)
-    out[image_to_observe].save(os.path.join(OUTPUT_TMP_FOLDER, f"{out['dataset']}_{out['split']}.png"))
+    out[image_to_observe].save(os.path.join(OUTPUT_TMP_FOLDER, f"original_{out['dataset']}_{out['split']}.png"))
+    out['resized_image'].save(os.path.join(OUTPUT_TMP_FOLDER, f"resized_{out['dataset']}_{out['split']}.png"))
 
 def try_saint_gall(base_folder = DEFAULT_SAINT_GALL, split: ['train', 'test', 'valid'] = 'train', image_height = 128, patch_width = 16, transforms = lambda x: x):
     dataset = SaintGallDataset(base_folder, split, image_height, patch_width, transforms)
@@ -68,7 +69,7 @@ def try_esposalles(base_folder = DEFAULT_ESPOSALLES, split = 'train', cross_val 
     dataset = EsposalledDataset(base_folder, split, cross_val, mode, image_height, patch_width, transforms)
     log_dataset(dataset)
     
-def try_cocotext(base_folder = DEFAULT_COCOTEXT, annots_name='cocotext.v2.json', langs = ['english', 'non-english'], legibility = ['legible', 'illgible'], split = 'train', image_height = 128, patch_width = 16, transforms = lambda x: x):
+def try_cocotext(base_folder = DEFAULT_COCOTEXT, annots_name='cocotext.v2.json', langs = ['english', 'not english'], legibility = ['legible', 'illegible'], split = 'train', image_height = 128, patch_width = 16, transforms = lambda x: x):
     dataset = COCOTextDataset(base_folder, annots_name, split, langs, legibility, image_height, patch_width, transforms )
     log_dataset(dataset)
     return dataset

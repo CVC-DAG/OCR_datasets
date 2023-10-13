@@ -9,7 +9,7 @@ DEFAULT_FUNSD = "/data/users/amolina/OCR/FUNSD"
 class FUNSDDataset(GenericDataset):
     name = 'funsd_dataset'
     
-    def __init__(self, base_folder = DEFAULT_FUNSD, split: ['train', 'test'] = 'train', patch_width = 16, image_height = 128, transformations = lambda x: x) -> None:
+    def __init__(self, base_folder = DEFAULT_FUNSD, split: ['train', 'test'] = 'train', patch_width = 16, image_height = 128, transforms = lambda x: x) -> None:
         super().__init__()
         
         split_rename = 'testing_data' if split=='test' else 'training_data'
@@ -17,7 +17,7 @@ class FUNSDDataset(GenericDataset):
         self.split = split
         self.patch_width = patch_width
         self.image_height = image_height
-        self.transforms = transformations
+        self.transforms = transforms
         
         folder = os.path.join(base_folder, split_rename)
         self.base_images = os.path.join(folder, 'images')

@@ -54,9 +54,8 @@ class EsposalledDataset(GenericDataset):
         
         image_resized = self.resize_image(image)
 
-         
         input_tensor = self.transforms(image_resized)
-        
+
         annotation = self.samples[file_path]
         
         return {

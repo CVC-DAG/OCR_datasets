@@ -49,6 +49,7 @@ class SROIEDataset(GenericDataset):
                                   [y2y, y2x]]]
                         
 
+                if image_path.endswith(').jpg'): continue # Duplicated images
                 self.data.append({
                     
                     'image_path': image_path,

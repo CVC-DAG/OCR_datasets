@@ -1,5 +1,6 @@
 import numpy as np
 from PIL import Image
+import torch
 
 class GenericDataset:
 
@@ -9,10 +10,14 @@ class GenericDataset:
     def resize_image(self, image):
 
         original_width, original_height = image.size
+        
+        original_height = max(original_height, 1)
+        original_width = max(original_width, 1)
+        
         scale = self.image_height / original_height
         
         resized_width = int(round(scale * original_width, 0))
-        new_width = resized_width + (resized_width % self.patch_width)
+        new_width = resized_width + (self.patch_width - (resized_width % self.patch_width))  # Adjusted this line
         
         return image.resize((new_width, self.image_height))
 
@@ -60,10 +65,53 @@ class CollateFNs:
         self.patch_width = patch_width
         self.image_height = image_height
         self.character_tokenizer = character_tokenizer
+        self.visual_padding_token = torch.zeros((3, self.image_height, self.patch_width))
     
     def collate(self, batch):
-        ## ADD 0 - PADDING SO WE CAN HORIZONTALY TOKENIZE THE SEQUENCES ##
-        pass
+
+        max_patches = max([x['input_tensor'].shape[2] // self.patch_width for x in batch])
+        max_tokens = max([3 + len(x['tokens']) for x in batch])
+        
+        visual_tokens = []
+        text_tokens = []
+        raw_texts = []
+        sources = []
+        resized_images = []
+        
+         
+        for item in batch:
+            
+            image, text_token, raw_text, split, dataset, original_image = item['input_tensor'], item['tokens'], item['annotation'], item['split'], item['dataset'], item['resized_image']
+            
+            resized_images.append(original_image)
+            sources.append(f"{split}_ {dataset}")
+            raw_texts.append(raw_text)
+            
+            text_tokens.append(torch.from_numpy(
+                self.character_tokenizer(
+                    text_token + [self.character_tokenizer.padding_token] * (max_tokens - len(text_token))
+                )
+            ))
+
+
+            patches = list(image.chunk(image.shape[2] // self.patch_width, dim=-1))
+            
+            patches = patches + [self.visual_padding_token] * (max_patches - len(patches))
+            
+            visual_tokens.append(
+                torch.stack(
+                    patches
+                )
+            )
+    
+        return {
+                'input_visual_seq': torch.stack(visual_tokens),
+                'labels': torch.stack(text_tokens),
+                'raw_text_gt': raw_texts,
+                'sources': sources,
+                'original_images': resized_images
+                }
+
 
 if __name__ == '__main__':
 
